@@ -154,20 +154,20 @@ extension BusquedaVC: UITableViewDataSource, UITableViewDelegate {
                 cell.item = item
                 
                 item.selectedCell = cell
-                
-                item.getMedia(onData: { stringMsg in
-                    DispatchQueue.main.async {
-                        item.selectedCell.lbProgreso.text = stringMsg
-                    }
-                }, onFinish: { downloadURL in
-                    DispatchQueue.main.async {
+                if item.pendienteDescarga {
+                    item.getMedia(onData: { stringMsg in
+                        DispatchQueue.main.async {
+                            item.selectedCell.lbProgreso.text = stringMsg
+                        }
+                    }, onFinish: { downloadURL in
                         let fileURL = URL(string: HTTPRequester.baseURL + downloadURL)
                         let request = URLRequest(url:fileURL!)
-
-                        let task = item.session?.dataTask(with: request)
-                        task?.resume()
-                    }
-                })
+                        let session = URLSession(configuration: URLSessionConfiguration.default, delegate:item, delegateQueue: OperationQueue.main)
+                        let task = session.dataTask(with: request)
+                        task.resume()
+                    })
+                }
+                
                 return cell
             }
         }

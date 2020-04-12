@@ -95,10 +95,6 @@
                     <rect key="frame" x="180" y="129" width="234" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grayline.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xv1-Bx-CRT">
-                            <rect key="frame" x="0.0" y="0.0" width="234" height="6"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No hay descargas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qid-2C-3dT">
                             <rect key="frame" x="66" y="9" width="102" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,7 +108,7 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" red="0.078432433309999994" green="0.082406155770000003" blue="0.07843097299" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     <viewLayoutGuide key="safeArea" id="XSw-VX-CnF"/>
                     <viewLayoutGuide key="contentLayoutGuide" id="phy-wP-ziT"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="U3P-Kd-lpX"/>
@@ -124,7 +120,6 @@
         </view>
     </objects>
     <resources>
-        <image name="grayline.png" width="1262.8800048828125" height="19.440000534057617"/>
         <image name="loading.gif" width="375" height="210"/>
         <image name="square.and.arrow.down" catalog="system" width="121" height="128"/>
     </resources>

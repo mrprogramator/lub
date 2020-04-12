@@ -11,26 +11,20 @@ import SocketIO
 import MobileCoreServices
 
 class DescargaLub: BasicVC {
-    let manager = SocketManager(socketURL: URL(string: "https://youtuber-dl.herokuapp.com")!, config: [.log(true), .compress])
     var socketId = ""
     var expectedContentLength = 0
     var buffer:NSMutableData = NSMutableData()
-    var session:URLSession?
     var dataTask:URLSessionDataTask?
     var selectedCell: DescargaCell!
     var selectedResult: Result!
     var vcInvoker: BusquedaVC!
     var pendienteDescarga = true
+    let manager = SocketManager(socketURL: URL(string: "https://youtuber-dl.herokuapp.com")!, config: [.log(true), .compress])
+    
     
     public func getMedia(onData: @escaping (_ stringMsg: String) -> (), onFinish: @escaping (_ downloadURL: String) -> ()) {
-        if expectedContentLength != 0 && (Float(buffer.length) / Float(expectedContentLength)) == 1 {
-            self.pendienteDescarga = false
-        }
-        
         if self.pendienteDescarga {
             self.pendienteDescarga = false
-            self.session = URLSession(configuration: URLSessionConfiguration.default, delegate:self, delegateQueue: OperationQueue.main)
-            
             let socket = manager.defaultSocket
             socket.on(clientEvent: .connect) {data, ack in
                 self.socketId = (socket.manager?.engine?.sid)!
@@ -62,6 +56,7 @@ class DescargaLub: BasicVC {
                 socket.on("finish") { data, ack in
                     let url = "get-media?folderName=" + folderName
                     socket.disconnect()
+                    self.manager.disconnect()
                     onFinish(url)
                 }
             }
