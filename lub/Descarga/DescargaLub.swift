@@ -19,7 +19,7 @@ class DescargaLub: BasicVC {
     var selectedResult: Result!
     var vcInvoker: BusquedaVC!
     var pendienteDescarga = true
-    let manager = SocketManager(socketURL: URL(string: "https://youtuber-dl.herokuapp.com")!, config: [.log(true), .compress])
+    let manager = SocketManager(socketURL: URL(string: HTTPRequester.baseURL)!, config: [.log(false), .compress])
     
     
     public func getMedia(onData: @escaping (_ stringMsg: String) -> (), onFinish: @escaping (_ downloadURL: String) -> ()) {

@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class HTTPRequester {
-    static var baseURL = "https://youtuber-dl.herokuapp.com/"
+class HTTPRequester {
+    static var baseURL = "https://lub-service.herokuapp.com"
     
     public static func request(url: String, method: String, body: [String: Any]?, onSuccess: @escaping (_ successResponse: String?) -> (), onError: @escaping (_ errorResponse: HTTPURLResponse?) -> ()) {
-        let requestedURL = URL(string: baseURL + url)!
+        let requestedURL = URL(string: baseURL + "/" + url)!
         var request = URLRequest(url: requestedURL)
         
         request.setValue("application/json", forHTTPHeaderField: "ContentType")
@@ -42,64 +42,5 @@ public class HTTPRequester {
         }
         
         task.resume()
-    }
-    
-    public static func downloadTaskText(_ urlString: String, completionHandler: @escaping (_ response: HTTPURLResponse?) -> (), onFinishDownload: @escaping (_ data: Data) -> ()) {
-        let fileURL = URL(string: self.baseURL + urlString)
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-
-        let request = URLRequest(url:fileURL!)
-
-        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
-            completionHandler((response as? HTTPURLResponse))
-            
-            // Success
-            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                print("Successfully downloaded. Status code: \(statusCode)")
-            }
-        }
-        task.resume()
-    }
-    
-    public static func downloadFile(_ url: String, onFinishDownload: @escaping (_ data: Data) -> () ) {
-        guard let videoUrl = URL(string: baseURL + url) else {
-           return
-        }
-        
-        DispatchQueue.global(qos: .utility).async {
-            var videoData: Data
-            
-            do {
-                videoData = try Data(contentsOf: videoUrl)
-                
-                DispatchQueue.main.async {
-                    onFinishDownload(videoData)
-                }
-            } catch {
-                print("Could not download data")
-            }
-        }
-            
-        //let fm = FileManager.default
-
-        //guard let docUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first else {
-        //   print("Unable to reach the documents folder")
-        //   return
-        //}
-
-        //let localUrl = docUrl.appendingPathComponent("test.mp4")
-
-        //try videoData.write(to: localUrl)
-
-        //let fileManager = FileManager.default
-        //let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        //do {
-        //    let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-        //    print(fileURLs)
-            // process files
-        //} catch {
-        //    print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
-        //}
     }
 }

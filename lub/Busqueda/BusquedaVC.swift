@@ -160,7 +160,7 @@ extension BusquedaVC: UITableViewDataSource, UITableViewDelegate {
                             item.selectedCell.lbProgreso.text = stringMsg
                         }
                     }, onFinish: { downloadURL in
-                        let fileURL = URL(string: HTTPRequester.baseURL + downloadURL)
+                        let fileURL = URL(string: HTTPRequester.baseURL + "/" + downloadURL)
                         let request = URLRequest(url:fileURL!)
                         let session = URLSession(configuration: URLSessionConfiguration.default, delegate:item, delegateQueue: OperationQueue.main)
                         let task = session.dataTask(with: request)
